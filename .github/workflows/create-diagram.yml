@@ -18,15 +18,33 @@ jobs:
         uses: actions/checkout@master
         with:
           fetch-depth: 0
-
-      - name: Update diagram
+      
+      # ZEEGUU DIAGRAM #
+      - name: Update general diagram
         uses: githubocto/repo-visualizer@main
         with:
           excluded_paths: "ignore,.github,.githooks"
+          output_file: "diagram.svg"
           should_push: true
-          
-      - name: Upload diagram artifact
+
+      - name: Upload general diagram artifact
         uses: actions/upload-artifact@v4       # migrate to v4 to avoid v3 bugs
         with:
           name: repo-diagram                    # choose any valid name
           path: diagram.svg
+
+      # ZEEGUU CORE DIAGRAM #
+      - name: Update core diagram
+        uses: githubocto/repo-visualizer@main
+        with:
+          root_path: "zeeguu/core"
+          excluded_paths: "ignore,.github,.githooks,static,tools,"
+          output_file: "core-diagram.svg"
+          should_push: true
+  
+      - name: Upload general diagram artifact
+        uses: actions/upload-artifact@v4       # migrate to v4 to avoid v3 bugs
+        with:
+          name: repo-diagram-core                    # choose any valid name
+          path: core-diagram.svg
+      
