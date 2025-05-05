@@ -15,7 +15,7 @@ jobs:
     
     steps:
       - name: Checkout code
-        uses: actions/checkout@v4
+        uses: actions/checkout@master
         with:
           fetch-depth: 0
 
@@ -24,5 +24,9 @@ jobs:
         with:
           excluded_paths: "ignore,.github,.githooks"
           should_push: true
-          commit_message: "chore: update repository diagram" 
-          artifact_name: "repo-diagram"
+          
+      - name: Upload diagram artifact
+        uses: actions/upload-artifact@v4       # migrate to v4 to avoid v3 bugs
+        with:
+          name: repo-diagram                    # choose any valid name
+          path: diagram.svg
